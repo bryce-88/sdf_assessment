@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -55,17 +54,17 @@ public class Main {
         
         System.out.printf("Total number of words : %.0f\n\n", totalCount);
 
-        //code block below will print out count and frequency for each unique word
-        // for (String w:wordCount.keySet()) {
-        //     Count count = wordCount.get(w);
-        //     System.out.printf("Word is : %s\n", w);
-        //     System.out.printf("Count is : %.0f\n", count.getWordCount());
-        //     System.out.printf("Frequency is : %.5f", count.evaluate(count.getWordCount(), totalCount));
-        //     System.out.println("");
-        // }
+        // code block below will print out count and frequency for each unique word
+        for (String w:wordCount.keySet()) {
+            Count count = wordCount.get(w);
+            System.out.printf("Word is : %s\n", w);
+            System.out.printf("Count is : %.0f\n", count.getWordCount());
+            System.out.printf("Frequency is : %.5f", count.evaluate(count.getWordCount(), totalCount));
+            System.out.println("");
+        }
         
 
-        //attempting to print sorted array
+        //attempting to print sorted array, not working since value is a Class...
         Map<String, Count> rankedMap = Count.sortByValue(wordCount);
         for (Map.Entry<String, Count> i : rankedMap.entrySet()) {
             System.out.println("Word : " + i.getKey()

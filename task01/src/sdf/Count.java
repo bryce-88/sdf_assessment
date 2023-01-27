@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public class Count implements Comparable<Count>{
 
     String word;
-    private Float wordCount = 0f; //this is frequency
+    private Float wordCount = 0f;
     private Float result = 0f;
     
     public Count() {
@@ -83,7 +83,7 @@ public class Count implements Comparable<Count>{
 
     @Override
     public String toString() {
-        return "Count = " + wordCount + ", Result = " + result + "]";
+        return "Count = " + wordCount + ", Result = " + this.result + "]";
     }
 
     
