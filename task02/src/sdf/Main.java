@@ -57,7 +57,7 @@ public class Main {
             }
             
 
-            System.out.printf("%.2f\n", $last);
+            System.out.printf("%.1f\n", $last);
             input = cons.readLine();
         }
         

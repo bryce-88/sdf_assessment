@@ -1,11 +1,15 @@
 package sdf;
 
-public class Count {
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public class Count implements Comparable<Count>{
 
     String word;
-    private float wordCount = 0f; //this is frequency
-    private float result = 0f;
-
+    private Float wordCount = 0f; //this is frequency
+    private Float result = 0f;
     
     public Count() {
     }
@@ -27,25 +31,24 @@ public class Count {
     }
 
 
-    public float getWordCount() {
+    public Float getWordCount() {
         return wordCount;
     }
 
 
-    public void setWordCount(float wordCount) {
+    public void setWordCount(Float wordCount) {
         this.wordCount = wordCount;
     }
 
 
-    public float getResult() {
+    public Float getResult() {
         return result;
     }
 
 
-    public void setResult(float result) {
+    public void setResult(Float result) {
         this.result = result;
     }
-
 
 
     //methods
@@ -55,19 +58,34 @@ public class Count {
 		wordCount++;
 	}
     
-    public float evaluate(float frequency, float totalCount) {
-        float result = frequency/totalCount;
-        return result;
+    public Float evaluate(Float frequency, Float totalCount) {
+        Float result = frequency/totalCount;
+        return result; 
     }
 
 
-
-    // @Override
-    // public int compareTo(Object o) {
-    //     // TODO Auto-generated method stub
-    //     return this.getResult().compareTo(o.getResult());
-    // }
+    @Override
+    public int compareTo(Count o) {
+        return this.getResult().compareTo(o.getResult());
+    }
 
 
+    //attempting to sort HashMap
+    public static Map<String, Count> sortByValue(HashMap<String, Count> count) {
+        
+        Map<String, Count> temp
+        = count.entrySet().stream().sorted((i1, i2)
+                          -> i1.getValue().compareTo(i2.getValue())).collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue,(e1, e2) -> e1, LinkedHashMap::new));
+        
+        return temp;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Count = " + wordCount + ", Result = " + result + "]";
+    }
+
+    
 
 }

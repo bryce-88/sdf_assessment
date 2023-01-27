@@ -8,15 +8,16 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         
-        Map<String, Count> wordCount = new HashMap<>();
+        HashMap<String, Count> wordCount = new HashMap<>();
 
-        Path path = Paths.get("for_trying.txt");
+        Path path = Paths.get(args[0]);
         File fileName = path.toFile();
         float totalCount = 0f;
 
@@ -28,11 +29,12 @@ public class Main {
             BufferedReader br = new BufferedReader(fr);
 
             while ((line = br.readLine()) != null) {
+                line = line.replaceAll("\\p{Punct}","");
                 Scanner scan = new Scanner(line);
-                scan.useDelimiter("\s|\n|\\!|\\,|\\.|\\(|\\)|\\{|\\}|\\:|\\;|\\'");
                 
                 while (scan.hasNext()) {
                     word = scan.next().toLowerCase();
+            
                     Count count = wordCount.get(word);
                     if (count == null) {
                         count = new Count(word);
@@ -51,18 +53,26 @@ public class Main {
         }
 
         
-        System.out.printf("Total number of words : %f\n\n", totalCount);
+        System.out.printf("Total number of words : %.0f\n\n", totalCount);
 
+        //code block below will print out count and frequency for each unique word
+        // for (String w:wordCount.keySet()) {
+        //     Count count = wordCount.get(w);
+        //     System.out.printf("Word is : %s\n", w);
+        //     System.out.printf("Count is : %.0f\n", count.getWordCount());
+        //     System.out.printf("Frequency is : %.5f", count.evaluate(count.getWordCount(), totalCount));
+        //     System.out.println("");
+        // }
+        
 
-
-
-
-        for (String w:wordCount.keySet()) {
-            Count count = wordCount.get(w);
-            System.out.printf("Word is : %s\n", w);
-            System.out.printf("Count is : %.0f\n", count.getWordCount());
-            System.out.printf("Frequency is : %.5f", count.evaluate(count.getWordCount(), totalCount));
-            System.out.println("");
+        //attempting to print sorted array
+        Map<String, Count> rankedMap = Count.sortByValue(wordCount);
+        for (Map.Entry<String, Count> i : rankedMap.entrySet()) {
+            System.out.println("Word : " + i.getKey()
+                               + ", "
+                               + i.getValue());   
         }
+
+
     }
 }
